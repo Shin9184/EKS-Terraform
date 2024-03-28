@@ -40,13 +40,22 @@ resource "aws_route" "routes_public" {
 }
 
 resource "aws_route" "routes_private" {
-  for_each               = var.vpc_info.cidr_blocks_private
+ count = length(var.vpc_info.cidr_blocks_private)
 
-  route_table_id         = aws_route_table.route_table_private[each.key].id
-  destination_cidr_block = "0.0.0.0/0"
-  
-  nat_gateway_id         = lookup(var.vpc_info.private_to_public_map, each.key, null) != null ? aws_nat_gateway.nat_gateway[lookup(var.vpc_info.private_to_public_map, each.key)].id : null
+ route_table_id = aws_route_table.route_table_private[keys(var.vpc_info.cidr_blocks_private)[count.index]].id
+ destination_cidr_block = "0.0.0.0/0"
+ nat_gateway_id = aws_nat_gateway.nat_gateway[keys(var.vpc_info.cidr_blocks_public)[count.index]].id
 }
+
+
+# resource "aws_route" "routes_private" {
+#   for_each               = var.vpc_info.cidr_blocks_private
+
+#   route_table_id         = aws_route_table.route_table_private[each.key].id
+#   destination_cidr_block = "0.0.0.0/0"
+  
+#   nat_gateway_id         = lookup(var.vpc_info.private_to_public_map, each.key, null) != null ? aws_nat_gateway.nat_gateway[lookup(var.vpc_info.private_to_public_map, each.key)].id : null
+# }
 
 resource "aws_route_table_association" "route_table_association_public" {
  for_each = var.vpc_info.cidr_blocks_public
