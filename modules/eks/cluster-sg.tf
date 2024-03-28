@@ -1,5 +1,5 @@
 resource "aws_security_group" "cluster_sg" {
-  name        = "terraform-eks-cluster"
+  name        = "${var.eks_cluster_info.cluster_name}-master-role"
   description = "Cluster communication with worker nodes"
   vpc_id      = var.vpc_id
 
@@ -11,7 +11,7 @@ resource "aws_security_group" "cluster_sg" {
   }
 
   tags = {
-    Name = "terraform-eks-cluster"
+    Name = "${var.eks_cluster_info.cluster_name}-master-role"
   }
 }
 

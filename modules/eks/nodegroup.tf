@@ -1,4 +1,4 @@
-resource "aws_eks_node_group" "main" {
+resource "aws_eks_node_group" "eks_nodegroup" {
   cluster_name    = aws_eks_cluster.eks_cluster.name
   node_group_name = var.eks_cluster_info.nodegroup_name
   node_role_arn   = aws_iam_role.nodegroup_role.arn

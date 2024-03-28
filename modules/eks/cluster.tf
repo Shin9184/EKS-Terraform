@@ -1,4 +1,4 @@
-resource "aws_eks_cluster" "cluster" {
+resource "aws_eks_cluster" "eks_cluster" {
   name     = var.eks_cluster_info.cluster_name
   role_arn = aws_iam_role.master_role.arn
   version = var.eks_cluster_info.cluster_version

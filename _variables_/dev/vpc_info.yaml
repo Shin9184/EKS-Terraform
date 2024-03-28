@@ -45,7 +45,7 @@ cidr_blocks_private_db:
     cidr_block: 172.21.32.0/22
     availability_zone: ap-northeast-2c
 
-private_to_public_map:
-  private_a: public_a
-  private_b: public_b
-  private_c: public_c
+# private_to_public_map:
+#   private_a: public_a
+#   private_b: public_b
+#   private_c: public_c
